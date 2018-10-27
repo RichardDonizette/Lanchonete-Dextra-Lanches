@@ -1,0 +1,31 @@
+{
+  "name": "lanchonete-api",
+  "version": "0.0.1",
+  "description": "API para aplicação teste de lanchonete na Dextra",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "dev": "nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RichardDonizette/Lanchonete-Dextra-Lanches.git"
+  },
+  "keywords": [
+    "Lanchonete",
+    "Dextra"
+  ],
+  "author": "Richard Donizete",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RichardDonizette/Lanchonete-Dextra-Lanches/issues"
+  },
+  "homepage": "https://github.com/RichardDonizette/Lanchonete-Dextra-Lanches#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "require-dir": "^1.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
+  }
+}
