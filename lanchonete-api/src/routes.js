@@ -1,9 +1,7 @@
 const express = require('express');
 const routes = express.Router();
-const  ingrediente  = require('./models/Ingrediente');
+const sandwichService = require('./services/SandwichService');
 
-routes.get('/igredientes', (req, res) => {
-    return res.send(ingrediente);
-});
+routes.get('/getData', sandwichService.index);
 
 module.exports = routes;
