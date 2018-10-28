@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/RichardDonizette/Lanchonete-Dextra-Lanches#readme",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.4",
     "require-dir": "^1.1.0"
   },
