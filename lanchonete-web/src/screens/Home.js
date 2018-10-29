@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
 import { fetchData } from '../actions/index'
+import Header from '../components/Header'
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
@@ -19,27 +18,20 @@ class Home extends Component {
     render() {
         return (
             <div className="home-content">
-                <AppBar position="static">
-                    <Toolbar>
-                        <Typography variant="h6" color="inherit">
-                            Dextra Lanches
-                         </Typography>
-                    </Toolbar>
-                </AppBar>
-
+                <Header description={'Dextra Lanches'}/>
                 <Card style={{ width: '100%' }}>
                     <CardContent>
                         <Typography variant="display1" style={{ fontWeight: "bold", textAlign: "center" }}>
                             <span> Bem vindo!</span>
                             <br />
-                            <span >Escolha a sua opção de pedido!</span>
+                            <span >Qual será seu pedido?</span>
                         </Typography>
                         <Grid container spacing={24} style={{ justifyContent: "center" }}>
                             <Grid item xs={3} style={{ textAlign: "center" }}>
                                 <Card onClick={() => this.props.dispatch(push('/selectSandwish'))}>
                                     <CardContent>
                                         <Typography variant="h5" component="h2">
-                                            <span style={{ color: "#f50057", fontWeight: "bold" }}>Escolha seu delicioso sanduíche!</span>
+                                            <span style={{ color: "#f50057", fontWeight: "bold" }}>Escolha seu sanduíche!</span>
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -49,7 +41,7 @@ class Home extends Component {
                                 <Card onClick={() => this.props.dispatch(push('/createSandwish'))}>
                                     <CardContent>
                                         <Typography variant="h5" component="h2">
-                                            <span style={{ color: "#f50057", fontWeight: "bold" }}>Monte seu delicioso sanduíche!</span>
+                                            <span style={{ color: "#f50057", fontWeight: "bold" }}>Monte seu sanduíche!</span>
                                         </Typography>
                                     </CardContent>
                                 </Card>
