@@ -4,8 +4,8 @@ import { routerReducer } from 'react-router-redux';
 import { SET_DATA} from "../constants/action-types";
 
 const initialState = {
-  sandwich: {},
-  ingrediente: {}
+  sandwich: [],
+  ingrediente: []
 };
 
 
