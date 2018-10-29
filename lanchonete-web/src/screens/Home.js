@@ -18,38 +18,34 @@ class Home extends Component {
     render() {
         return (
             <div className="home-content">
-                <Header description={'Dextra Lanches'}/>
-                <Card style={{ width: '100%' }}>
-                    <CardContent>
-                        <Typography variant="display1" style={{ fontWeight: "bold", textAlign: "center" }}>
-                            <span> Bem vindo!</span>
-                            <br />
-                            <span >Qual será seu pedido?</span>
-                        </Typography>
-                        <Grid container spacing={24} style={{ justifyContent: "center" }}>
-                            <Grid item xs={3} style={{ textAlign: "center" }}>
-                                <Card onClick={() => this.props.dispatch(push('/selectSandwish'))}>
-                                    <CardContent>
-                                        <Typography variant="h5" component="h2">
-                                            <span style={{ color: "#f50057", fontWeight: "bold" }}>Escolha seu sanduíche!</span>
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-
-                            <Grid item xs={3} style={{ textAlign: "center" }}>
-                                <Card onClick={() => this.props.dispatch(push('/createSandwish'))}>
-                                    <CardContent>
-                                        <Typography variant="h5" component="h2">
-                                            <span style={{ color: "#f50057", fontWeight: "bold" }}>Monte seu sanduíche!</span>
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-
+                <Header description={'Dextra Lanches'} />
+                    <Typography variant="display1" style={{ fontWeight: "bold", textAlign: "center" }}>
+                        <span> Bem vindo!</span>
+                        <br />
+                        <span >Qual será seu pedido?</span>
+                    </Typography>
+                <div>
+                    <Grid container spacing={24} style={{ justifyContent: "center" }}>
+                        <Grid item xs={3} style={{ textAlign: "center" }}>
+                            <Card onClick={() => this.props.dispatch(push('/selectSandwish'))}>
+                                <CardContent>
+                                    <Typography variant="h5" component="h2">
+                                        <span style={{ color: "#f50057", fontWeight: "bold" }}>Escolha seu sanduíche!</span>
+                                    </Typography>
+                                </CardContent>
+                            </Card>
                         </Grid>
-                    </CardContent>
-                </Card>
+                        <Grid item xs={3} style={{ textAlign: "center" }}>
+                            <Card onClick={() => this.props.dispatch(push('/createSandwish'))}>
+                                <CardContent>
+                                    <Typography variant="h5" component="h2">
+                                        <span style={{ color: "#f50057", fontWeight: "bold" }}>Monte seu sanduíche!</span>
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                </div>
             </div>
         )
     }
