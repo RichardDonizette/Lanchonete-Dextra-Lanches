@@ -25,7 +25,7 @@ class Home extends Component {
                         <span >Qual será seu pedido?</span>
                     </Typography>
                 <div>
-                    <Grid container spacing={24} style={{ justifyContent: "center" }}>
+                    <Grid container spacing={0} style={{ justifyContent: "center" }}>
                         <Grid item xs={3} style={{ textAlign: "center" }}>
                             <Card onClick={() => this.props.dispatch(push('/selectSandwish'))}>
                                 <CardContent>

@@ -1,46 +1,105 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header'
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
+import Cart from '../components/Cart'
+import Sandwich from '../components/Sandwich'
+import IngredientList from '../components/IngredientList'
+import { selectSandwich, closeSandwichCostumize } from '../actions/index'
 
-import xBaconImg from '../../src/assets/img/x-bacon.png'
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+
 
 class SelectSandwich extends Component {
+
+    sendSandwichCart(sandwich) {
+        this.props.dispatch(selectSandwich(sandwich));
+        this.props.dispatch(closeSandwichCostumize());
+    }
+
+    closeCostumize() {
+        this.props.dispatch(closeSandwichCostumize());
+    }
     render() {
-        const { sandwich } = this.props;
+        const { sandwich, selectSandwich } = this.props;
         return (
             <div>
                 <Header description={'Escolha seu sanduíche!'} />
-                {
-                    sandwich.map((s, index) => {
-                        return (
-                            <Card key={index} style={{ height: 120, borderRadius: 10, marginTop: 10 }}>
-                                <div className={"lanche-container"}>
-                                    <img src={xBaconImg} alt="Avatar" className={"image"} style={{ width: 120, height: 120, borderRadius: 10 }} />
-                                    <div className={"middle"}>
-                                        <Button onClick={() => console.log("Customizar")} style={{ margin: 10 }} variant="contained" color="primary">
-                                            Customizar
-                                    </Button>
-                                        <Button onClick={() => console.log("Adicionar")} className={"text"} variant="contained" color="secondary">
-                                            Adicionar ao carrinho
-                                     </Button>
-                                    </div>
-                                </div>
-                            </Card>
-                        );
-                    })
-                }
+                <div style={{ marginBottom: -10 }}>
+                    {
+                        sandwich.map((s, index) => (
+                            < Sandwich key={index} sandwich={s} />
+                        ))
+                    }
+                    <Dialog
+                        fullScreen={false}
+                        open={this.props.openModal}
+                        onClose={() => this.closeCostumize()}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+                        <DialogTitle id="responsive-dialog-title">{`Customize o seu ${selectSandwich.sandwichCostumize.Name}`}</DialogTitle>
 
+                        <DialogContent>
+                            <DialogContentText>
+                                Adicione ou remova ingredientes ao seu sanduíche!
+                            </DialogContentText>
+                            <Grid container spacing={8} style={{ marginTop: 10, marginBottom: 10 }}>
+                                <Grid item xs={6} style={{ textAlign: "left" }}>
+                                    <Typography variant="subheading">
+                                        Ingredientes:
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={6} style={{ textAlign: "right" }}>
+                                    <Typography variant="display1">
+                                        "R$0,00"
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12} style={{ textAlign: "left" }}>
+                                    <Typography variant="h6">
+                                        {selectSandwich.sandwichCostumize.length === 0 ?
+                                            null
+                                            :
+                                            selectSandwich.sandwichCostumize.ingredients.join(', ')
+                                        }
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={8} style={{ marginTop: 10 }}>
+                                <Grid item xs={12}>
+                                    <Typography variant="h6">
+                                        Escolha os ingredientes
+                                    </Typography>
+                                    <IngredientList/>
+                                </Grid>
+                             </Grid>
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button onClick={() => this.closeCostumize()} color="primary">
+                                Cancelar
+                            </Button>
+                            <Button onClick={() => this.sendSandwichCart(selectSandwich.sandwichCostumize)} color="primary" autoFocus>
+                                Adicionar ao carrinho
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                </div>
+                <Cart />
             </div>
         )
     }
 }
 const mapStateToProps = (state) => ({
     sandwich: state.menu.sandwich,
-    ingrediente: state.menu.ingrediente
-
+    ingrediente: state.menu.ingrediente,
+    openModal: state.selectSandwich.customizeSandwichModal,
+    selectSandwich: state.selectSandwich
 });
 
 export default connect(mapStateToProps)(SelectSandwich);

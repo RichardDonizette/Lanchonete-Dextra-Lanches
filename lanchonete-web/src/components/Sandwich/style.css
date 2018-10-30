@@ -1,0 +1,32 @@
+.sandwich-container {
+    position: relative;
+}
+
+img.image {
+    opacity: 1;
+    display: block;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.button-meddle {
+    transition: .5s ease;
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.description-content{
+    position: absolute;
+    top: 15%;
+    left: 15%;
+}
+
+span.sandwich-name {
+    font-weight: bold;
+    font-size: large;
+}
