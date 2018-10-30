@@ -1,4 +1,6 @@
 # Lanchonete-Dextra-Lanches
+[![Build Status](https://travis-ci.org/RichardDonizette/Lanchonete-Dextra-Lanches.svg?branch=master)](https://travis-ci.org/RichardDonizette/Lanchonete-Dextra-Lanches)
+
 Projeto Front-End de Lanchonete utilizando ReactJS e NodeJs no Back-End
 
 Para a inicialização do servidor:
