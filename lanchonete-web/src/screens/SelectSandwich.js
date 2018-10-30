@@ -5,6 +5,7 @@ import Cart from '../components/Cart'
 import Sandwich from '../components/Sandwich'
 import IngredientList from '../components/IngredientList'
 import { selectSandwich, closeSandwichCostumize } from '../actions/index'
+import { calculePriceBySandwich } from '../util/cartCalculation'
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -19,6 +20,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 class SelectSandwich extends Component {
 
     sendSandwichCart(sandwich) {
+        calculePriceBySandwich(sandwich, this.props.ingrediente)
         this.props.dispatch(selectSandwich(sandwich));
         this.props.dispatch(closeSandwichCostumize());
     }
@@ -57,7 +59,7 @@ class SelectSandwich extends Component {
                                 </Grid>
                                 <Grid item xs={6} style={{ textAlign: "right" }}>
                                     <Typography variant="display1">
-                                        "R$0,00"
+                                        R$ {selectSandwich.costumizePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} style={{ textAlign: "left" }}>
@@ -75,9 +77,9 @@ class SelectSandwich extends Component {
                                     <Typography variant="h6">
                                         Escolha os ingredientes
                                     </Typography>
-                                    <IngredientList/>
+                                    <IngredientList />
                                 </Grid>
-                             </Grid>
+                            </Grid>
                         </DialogContent>
 
                         <DialogActions>

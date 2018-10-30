@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import style from './style.css'
-import { selectSandwich, sandwichCostumize } from '../../actions/index'
+import { selectSandwich, sandwichCostumize, addSandwichCart } from '../../actions/index'
+import { calculePriceBySandwich } from '../../util/cartCalculation'
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -28,10 +29,11 @@ const selectImg = (path) => {
 
 const sendSandwichCart = (props) => {
    props.dispatch(selectSandwich(props.sandwich));
+   props.dispatch(addSandwichCart(props.sandwich, calculePriceBySandwich(props.sandwich, props.ingrediente, props.costumizePrice)));
 }
 
 const sendCostumizeSandwich = (props) => {
-    props.dispatch(sandwichCostumize(props.sandwich));
+    props.dispatch(sandwichCostumize(props.sandwich, calculePriceBySandwich(props.sandwich, props.ingrediente, props.costumizePrice)));
 }
 
 const Sandwich = (props) => (
@@ -58,4 +60,8 @@ const Sandwich = (props) => (
         </div>
     </Card>
 )
-export default connect()(Sandwich);
+const mapStateToProps = (state) => ({
+    ingrediente: state.menu.ingrediente,
+    costumizePrice: state.selectSandwich.costumizePrice,
+});
+export default connect(mapStateToProps)(Sandwich);

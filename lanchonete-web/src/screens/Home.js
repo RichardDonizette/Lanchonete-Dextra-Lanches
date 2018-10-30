@@ -26,7 +26,7 @@ class Home extends Component {
                     </Typography>
                 <div>
                     <Grid container spacing={0} style={{ justifyContent: "center" }}>
-                        <Grid item xs={3} style={{ textAlign: "center" }}>
+                        <Grid item xs={3} style={{ textAlign: "center", margin: 10 }}>
                             <Card onClick={() => this.props.dispatch(push('/selectSandwish'))}>
                                 <CardContent>
                                     <Typography variant="h5" component="h2">
@@ -35,7 +35,7 @@ class Home extends Component {
                                 </CardContent>
                             </Card>
                         </Grid>
-                        <Grid item xs={3} style={{ textAlign: "center" }}>
+                        <Grid item xs={3} style={{ textAlign: "center", margin: 10 }}>
                             <Card onClick={() => this.props.dispatch(push('/createSandwish'))}>
                                 <CardContent>
                                     <Typography variant="h5" component="h2">

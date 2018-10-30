@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -16,45 +17,67 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 
-const Cart = (props) => (
-    <div>
-        <Badge color="secondary" badgeContent={5} style={{ position: "fixed", bottom: 20, right: 20 }} >
-            <Button onClick={() => { }} variant="fab" color="primary" aria-label="add" >
-                <ShoppingCartIcon />
-            </Button>
-        </Badge>
-        <Dialog
-            fullScreen
-            open={false}
-            onClose={() => { }}
-        >
-            <AppBar>
-                <Toolbar>
-                    <IconButton color="inherit" onClick={() => { }} aria-label="Close">
-                        <CloseIcon />
-                    </IconButton>
-                    <Typography variant="title" color="inherit" >
-                        Meu carrinho
-              </Typography>
-                </Toolbar>
-            </AppBar>
-            <List style={{ maxHeight: 508, overflowY: "scroll", marginTop: document.getElementById("appBar") ? (document.getElementById("appBar").clientHeight + 10) + "px" : "80px" }}>
+class Cart extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false
+        }
+    }
 
-                <ListItem button>
-                    <ListItemText primary={`kkk`} secondary={'kkkkkk'} />
-                    <ListItemSecondaryAction>
-                        <IconButton onClick={() => { }} style={{ color: "red" }} aria-label="Remover item">
-                            <RemoveIcon />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
+    render() {
+        const { cart } = this.props;
+        return (
+            <div>
+                <Badge color="secondary" badgeContent={cart.sandwich.length} style={{ position: "fixed", bottom: 20, right: 20 }} >
+                    <Button onClick={() => this.setState({ open: true })} variant="fab" color="primary" aria-label="add" >
+                        <ShoppingCartIcon />
+                    </Button>
+                </Badge>
+                <Dialog
+                    fullScreen
+                    open={this.state.open}
+                    onClose={() => { }}
+                >
+                    <AppBar position="static">
+                        <Toolbar>
+                            <IconButton color="inherit" onClick={() => this.setState({ open: false })} aria-label="Close">
+                                <CloseIcon />
+                            </IconButton>
+                            <Typography variant="title" color="inherit" >
+                                Meu carrinho
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+                    <div>
+                        <List>
+                            {
+                                cart.sandwich.map((sandwich, index) => {
+                                    return (
+                                        <ListItem key={index} button>
+                                            <ListItemText primary={sandwich.Name} secondary={sandwich.ingredients.join(', ')} />
+                                            <ListItemSecondaryAction>
+                                                <IconButton onClick={() => { }} style={{ color: "red" }} aria-label="Remover item">
+                                                    <RemoveIcon />
+                                                </IconButton>
+                                            </ListItemSecondaryAction>
+                                        </ListItem>
+                                    )
+                                })
+                            }
+                        </List>
+                    </div>
+                    <Typography style={{ position: "absolute", bottom: 25, right: 25 }} variant="headline" >
+                        <span>Total: R$</span>{cart.totalPrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+                    </Typography>
+                </Dialog>
+            </div>
+        )
+    }
+}
 
-            </List>
+const mapStateToProps = (state) => ({
+    cart: state.cart,
+});
 
-            <Typography style={{ position: "absolute", bottom: 25, right: 25 }} variant="headline" >
-                <span style={{ color: "#f50057" }}>Total: </span>{"2252"}
-            </Typography>
-        </Dialog>
-    </div>
-)
-export default Cart;
+export default connect(mapStateToProps)(Cart);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { calculePriceBySandwich } from '../../util/cartCalculation'
 import { addIngrediente, removeIngrediente } from '../../actions/index'
 
 import List from '@material-ui/core/List';
@@ -11,20 +11,22 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 
 const addIngredients = (ingrediente, props) => {
-    props.dispatch(addIngrediente(ingrediente))
+    props.dispatch(addIngrediente(ingrediente.Name, calculePriceBySandwich(props.sandwichCostumize, props.ingrediente, props.costumizePrice)));
+    
 }
 
 const removeIngredients = (ingrediente, props) => {
     let { ingredientsList } = props
     let ingredientIndex = null;
     ingredientsList.some((element, index) => {
-        if(element === ingrediente){
+        if (element === ingrediente.Name) {
             ingredientIndex = index;
             return true
-        } 
+        }
     })
-    if(ingredientIndex){
-        props.dispatch(removeIngrediente(ingredientIndex))
+    if (ingredientIndex != null) {
+        props.dispatch(removeIngrediente(ingredientIndex, calculePriceBySandwich(props.sandwichCostumize, props.ingrediente, props.costumizePrice)));
+        
     }
 }
 
@@ -36,10 +38,10 @@ const IngredientList = (props) => (
                     <ListItem key={index}>
                         <ListItemText primary={element.Name} />
                         <ListItemSecondaryAction>
-                            <IconButton disabled={false} onClick={() => removeIngredients(element.Name, props)} aria-label="Comments">
+                            <IconButton onClick={() => removeIngredients(element, props)} aria-label="Comments">
                                 <Icon >remove_circle</Icon>
                             </IconButton>
-                            <IconButton disabled={false} onClick={() => addIngredients(element.Name, props)} aria-label="Comments">
+                            <IconButton onClick={() => addIngredients(element, props)} aria-label="Comments">
                                 <Icon >add_circle</Icon>
                             </IconButton>
                         </ListItemSecondaryAction>
@@ -51,6 +53,8 @@ const IngredientList = (props) => (
 )
 const mapStateToProps = (state) => ({
     ingrediente: state.menu.ingrediente,
-    ingredientsList: state.selectSandwich.sandwichCostumize.ingredients
+    ingredientsList: state.selectSandwich.sandwichCostumize.ingredients,
+    sandwichCostumize: state.selectSandwich.sandwichCostumize,
+    costumizePrice: state.selectSandwich.costumizePrice,
 });
 export default connect(mapStateToProps)(IngredientList);

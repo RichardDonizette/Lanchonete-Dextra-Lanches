@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import { SET_DATA, SELECT_SANDWICH, CUSTOMIZE_SANDWICH, CLOSE_CUSTOMIZE_SANDWICH, REMOVE_INGREDIENT_SANDWICH, ADD_INGREDIENT_SANDWICH } from "../constants/action-types";
-
-
+import {
+  SET_DATA, SELECT_SANDWICH, CUSTOMIZE_SANDWICH, CLOSE_CUSTOMIZE_SANDWICH, REMOVE_INGREDIENT_SANDWICH, ADD_INGREDIENT_SANDWICH,
+  ADD_SANDWICH_CART
+} from "../constants/action-types";
 
 const menu = (
   state = {
@@ -26,6 +27,7 @@ const selectSandwich = (
   state = {
     sandwich: [],
     sandwichCostumize: [],
+    costumizePrice: 0.0,
     customizeSandwichModal: false,
   }, action) => {
   switch (action.type) {
@@ -38,6 +40,7 @@ const selectSandwich = (
       return {
         ...state,
         sandwichCostumize: action.sandwichCostumize,
+        costumizePrice: action.costumizePrice,
         customizeSandwichModal: true,
       };
     case CLOSE_CUSTOMIZE_SANDWICH:
@@ -49,7 +52,9 @@ const selectSandwich = (
     case ADD_INGREDIENT_SANDWICH:
       return {
         ...state,
+        costumizePrice: action.costumizePrice,
         sandwichCostumize: {
+          Name: state.sandwichCostumize.Name,
           ingredients: state.sandwichCostumize.ingredients.concat(action.ingrediente)
         },
       };
@@ -57,7 +62,9 @@ const selectSandwich = (
       state.sandwichCostumize.ingredients.splice(action.index, 1)
       return {
         ...state,
+        costumizePrice: action.costumizePrice,
         sandwichCostumize: {
+          Name: state.sandwichCostumize.Name,
           ingredients: state.sandwichCostumize.ingredients
         },
       };
@@ -79,13 +86,17 @@ const createSandwich = (state = {}, action) => {
   }
 }
 
-const cart = (state = {}, action) => {
+const cart = (
+  state = {
+    sandwich: [],
+    totalPrice: 0.0,
+  }, action) => {
   switch (action.type) {
-    case SET_DATA:
+    case ADD_SANDWICH_CART:
       return {
         ...state,
-        sandwich: action.sandwich,
-        ingrediente: action.ingrediente
+        sandwich: state.sandwich.concat(action.sandwich),
+        totalPrice: state.totalPrice + action.totalPrice
       };
     default:
       return state;

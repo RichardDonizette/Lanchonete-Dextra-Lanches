@@ -1,7 +1,10 @@
-import { SET_DATA, SELECT_SANDWICH, CLOSE_CUSTOMIZE_SANDWICH, CUSTOMIZE_SANDWICH, ADD_INGREDIENT_SANDWICH, REMOVE_INGREDIENT_SANDWICH } from "../constants/action-types";
 import api from '../util/api'
+import {
+    SET_DATA, SELECT_SANDWICH, CLOSE_CUSTOMIZE_SANDWICH, CUSTOMIZE_SANDWICH, ADD_INGREDIENT_SANDWICH, REMOVE_INGREDIENT_SANDWICH,
+    ADD_SANDWICH_CART
+} from "../constants/action-types";
 
-export const getData = data => (dispatch, getState) => {
+export const getData = data => (dispatch) => {
     dispatch(
         {
             type: SET_DATA,
@@ -11,7 +14,7 @@ export const getData = data => (dispatch, getState) => {
     )
 };
 
-export const fetchData = () => async (dispatch, getState) => {
+export const fetchData = () => async (dispatch) => {
     try {
         const response = await api.get("/getData");
         return dispatch(getData(response.data));
@@ -20,7 +23,7 @@ export const fetchData = () => async (dispatch, getState) => {
     }
 }
 
-export const selectSandwich = sandwich => (dispatch, getState) => {
+export const selectSandwich = sandwich => (dispatch) => {
     dispatch(
         {
             type: SELECT_SANDWICH,
@@ -29,16 +32,17 @@ export const selectSandwich = sandwich => (dispatch, getState) => {
     )
 };
 
-export const sandwichCostumize = sandwich => (dispatch, getState) => {
+export const sandwichCostumize = (sandwich, costumizePrice) => (dispatch) => {
     dispatch(
         {
             type: CUSTOMIZE_SANDWICH,
-            sandwichCostumize: sandwich
+            sandwichCostumize: sandwich,
+            costumizePrice: costumizePrice
         }
     )
 };
 
-export const closeSandwichCostumize = () => (dispatch, getState) => {
+export const closeSandwichCostumize = () => (dispatch) => {
     dispatch(
         {
             type: CLOSE_CUSTOMIZE_SANDWICH
@@ -46,16 +50,26 @@ export const closeSandwichCostumize = () => (dispatch, getState) => {
     )
 };
 
-export const addIngrediente = ingrediente => (dispatch, getState) => {
+export const addIngrediente = (ingrediente, costumizePrice) => (dispatch) => {
     dispatch({
         type: ADD_INGREDIENT_SANDWICH,
         ingrediente,
+        costumizePrice
     })
 };
 
-export const removeIngrediente = index => (dispatch, getState) => {
+export const removeIngrediente = (index, costumizePrice) => (dispatch) => {
     dispatch({
         type: REMOVE_INGREDIENT_SANDWICH,
         index,
+        costumizePrice
+    })
+};
+
+export const addSandwichCart = (sandwich, totalPrice) => (dispatch) => {
+    dispatch({
+        type: ADD_SANDWICH_CART,
+        sandwich,
+        totalPrice
     })
 };
