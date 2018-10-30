@@ -11,8 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 
 const addIngredients = (ingrediente, props) => {
-    props.dispatch(addIngrediente(ingrediente.Name, calculePriceBySandwich(props.sandwichCostumize, props.ingrediente, props.costumizePrice)));
-    
+    props.dispatch(addIngrediente(ingrediente.Name, 0.0));
+    calculePriceBySandwich(props.sandwichCostumize, props.ingrediente, props.costumizePrice)
 }
 
 const removeIngredients = (ingrediente, props) => {
@@ -26,7 +26,6 @@ const removeIngredients = (ingrediente, props) => {
     })
     if (ingredientIndex != null) {
         props.dispatch(removeIngrediente(ingredientIndex, calculePriceBySandwich(props.sandwichCostumize, props.ingrediente, props.costumizePrice)));
-        
     }
 }
 

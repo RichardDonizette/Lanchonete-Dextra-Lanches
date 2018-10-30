@@ -1,7 +1,7 @@
 import api from '../util/api'
 import {
     SET_DATA, SELECT_SANDWICH, CLOSE_CUSTOMIZE_SANDWICH, CUSTOMIZE_SANDWICH, ADD_INGREDIENT_SANDWICH, REMOVE_INGREDIENT_SANDWICH,
-    ADD_SANDWICH_CART
+    ADD_SANDWICH_CART, REMOVE_SANDWICH_CART
 } from "../constants/action-types";
 
 export const getData = data => (dispatch) => {
@@ -72,4 +72,13 @@ export const addSandwichCart = (sandwich, totalPrice) => (dispatch) => {
         sandwich,
         totalPrice
     })
+};
+
+export const removeSandwichCart = (index, totalPrice) => (dispatch) => {
+    dispatch({
+        type: REMOVE_SANDWICH_CART,
+        index,
+        totalPrice
+    })
+    console.log('blablabla')
 };

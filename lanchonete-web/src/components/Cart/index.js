@@ -16,6 +16,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import { removeSandwichCart } from '../../actions/index'
+import { calculePriceBySandwich } from '../../util/cartCalculation'
 
 class Cart extends Component {
     constructor(props) {
@@ -24,7 +26,12 @@ class Cart extends Component {
             open: false
         }
     }
-
+    removeSandwich(index, ingredients) {
+        let sandwich = {
+            ingredients: ingredients
+        }
+        this.props.dispatch(removeSandwichCart(index, calculePriceBySandwich(sandwich, this.props.ingredienteList)));
+    }
     render() {
         const { cart } = this.props;
         return (
@@ -57,7 +64,7 @@ class Cart extends Component {
                                         <ListItem key={index} button>
                                             <ListItemText primary={sandwich.Name} secondary={sandwich.ingredients.join(', ')} />
                                             <ListItemSecondaryAction>
-                                                <IconButton onClick={() => { }} style={{ color: "red" }} aria-label="Remover item">
+                                                <IconButton onClick={() => this.removeSandwich(index, sandwich.ingredients)} style={{ color: "red" }} aria-label="Remover item">
                                                     <RemoveIcon />
                                                 </IconButton>
                                             </ListItemSecondaryAction>
@@ -78,6 +85,7 @@ class Cart extends Component {
 
 const mapStateToProps = (state) => ({
     cart: state.cart,
+    ingredienteList: state.menu.ingrediente
 });
 
 export default connect(mapStateToProps)(Cart);

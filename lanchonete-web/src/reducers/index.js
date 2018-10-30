@@ -3,7 +3,7 @@ import { routerReducer } from 'react-router-redux';
 
 import {
   SET_DATA, SELECT_SANDWICH, CUSTOMIZE_SANDWICH, CLOSE_CUSTOMIZE_SANDWICH, REMOVE_INGREDIENT_SANDWICH, ADD_INGREDIENT_SANDWICH,
-  ADD_SANDWICH_CART
+  ADD_SANDWICH_CART, REMOVE_SANDWICH_CART
 } from "../constants/action-types";
 
 const menu = (
@@ -26,7 +26,10 @@ const menu = (
 const selectSandwich = (
   state = {
     sandwich: [],
-    sandwichCostumize: [],
+    sandwichCostumize: {
+      Name:'',
+      ingredients:[]
+    },
     costumizePrice: 0.0,
     customizeSandwichModal: false,
   }, action) => {
@@ -73,19 +76,6 @@ const selectSandwich = (
   }
 }
 
-const createSandwich = (state = {}, action) => {
-  switch (action.type) {
-    case SET_DATA:
-      return {
-        ...state,
-        sandwich: action.sandwich,
-        ingrediente: action.ingrediente
-      };
-    default:
-      return state;
-  }
-}
-
 const cart = (
   state = {
     sandwich: [],
@@ -98,6 +88,13 @@ const cart = (
         sandwich: state.sandwich.concat(action.sandwich),
         totalPrice: state.totalPrice + action.totalPrice
       };
+    case REMOVE_SANDWICH_CART:
+    state.sandwich.splice(action.index, 1)
+      return {
+        ...state,
+        sandwich: state.sandwich,
+        totalPrice: state.totalPrice - action.totalPrice
+      };
     default:
       return state;
   }
@@ -107,7 +104,6 @@ const rootReducer = combineReducers({
   routing: routerReducer,
   menu,
   selectSandwich,
-  createSandwich,
   cart
 });
 
