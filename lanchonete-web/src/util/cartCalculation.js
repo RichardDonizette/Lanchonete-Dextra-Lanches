@@ -3,57 +3,38 @@ export const calculePriceBySandwich = (sandwich, ingredientePrice) => {
     if (sandwich.length !== 0) {
         sandwich.ingredients.map((ingrediente) => {
             ingredientePrice.map((ingredienteList) => {
-                if (ingrediente == ingredienteList.Name) {
+                if (ingrediente === ingredienteList.Name) {
                     price = (price + ingredienteList.Price)
                 }
             })
         })
     }
-    // calculePriceWithPromotion(sandwich.ingredients, ingredientePrice)
-    return price;
+
+    return price - calculePriceWithPromotion(price, sandwich.ingredients, ingredientePrice);
 };
 
-const calculePriceWithPromotion = (ingredienteList, ingredientePrice) => {
-    var sumBacon = ingredienteList.reduce(function (prevVal, elem) {
-        if (elem === "Bacon") {
-            prevVal++
-        }
-        return prevVal
-    }, 0);
+const calculePriceWithPromotion = (total, ingredienteList, ingredientePrice) => {
+    let discount = 0;
 
-    var sumCheese = ingredienteList.reduce(function (prevVal, elem) {
-        if (elem === "Queijo") {
-            prevVal++
-        }
-        return prevVal
-    }, 0);
+    const sum = ingredientePrice.reduce((counts, ingredient) => {
+        counts[ingredient.Name] = 0;
+        return counts;
+    }, {});
 
-    if (sumBacon % 3 === 0) {
-        let baconPromo = (2 / 3 * (ingredientePrice[0].Price * sumBacon))
+    const ingredientsCount = ingredienteList.reduce((sum, ingredient) => {
+        sum[ingredient]++;
+        return sum;
+    }, sum);
+
+    const cheeseGroups = parseInt(ingredientsCount['Queijo'] / 3);
+    discount += cheeseGroups * ingredientePrice[4].Price;
+
+    const meatGroup = parseInt(ingredientsCount['Hambúrguer de carne'] / 3);
+    discount += meatGroup * ingredientePrice[2].Price;
+
+    if (ingredientsCount['Bacon'] === 0 && ingredientsCount['Alface'] > 0) {
+        discount += (total - discount) * 0.1;
     }
 
-    if (sumCheese % 3 === 0) {
-        let chessePromo = (2 / 3 * (ingredientePrice[4].Price * sumCheese))
-    }
-};
-
-const lightPromotion = (ingredienteList) => {
-    var sumBacon = ingredienteList.reduce(function (prevVal, elem) {
-        if (elem === "Bacon") {
-            prevVal++
-        }
-        return prevVal
-    }, 0);
-
-    var sumLettuce = ingredienteList.reduce(function (prevVal, elem) {
-        if (elem === "Alface") {
-            prevVal++
-        }
-        return prevVal
-    }, 0);
-
-    if (sumBacon === 0 && sumLettuce > 0) {
-        return 0.1;
-    }
-    return 0
+    return discount
 };

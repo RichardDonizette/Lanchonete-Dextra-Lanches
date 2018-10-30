@@ -27,8 +27,8 @@ const selectSandwich = (
   state = {
     sandwich: [],
     sandwichCostumize: {
-      Name:'',
-      ingredients:[]
+      Name: '',
+      ingredients: []
     },
     costumizePrice: 0.0,
     customizeSandwichModal: false,
@@ -49,7 +49,10 @@ const selectSandwich = (
     case CLOSE_CUSTOMIZE_SANDWICH:
       return {
         ...state,
-        sandwichCostumize: [],
+        sandwichCostumize: {
+          Name: '',
+          ingredients: []
+        },
         customizeSandwichModal: false,
       };
     case ADD_INGREDIENT_SANDWICH:
@@ -89,7 +92,7 @@ const cart = (
         totalPrice: state.totalPrice + action.totalPrice
       };
     case REMOVE_SANDWICH_CART:
-    state.sandwich.splice(action.index, 1)
+      state.sandwich.splice(action.index, 1)
       return {
         ...state,
         sandwich: state.sandwich,
