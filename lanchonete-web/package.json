@@ -2,6 +2,7 @@
   "name": "lanchonete-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/RichardDonizette/Lanchonete-Dextra-Lanches/tree/master/lanchonete-web",
   "dependencies": {
     "@material-ui/core": "^3.3.2",
     "@material-ui/icons": "^3.0.1",
