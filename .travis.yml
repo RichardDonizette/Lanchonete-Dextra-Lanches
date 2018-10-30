@@ -8,6 +8,6 @@ script:
 deploy:
   provider: pages
   skip_cleanup: true
-  local_dir: ./lanchonete-web
+  build: ./lanchonete-web/
   on:
     branch: master
