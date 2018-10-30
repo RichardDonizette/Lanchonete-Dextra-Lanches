@@ -21,6 +21,7 @@ const removeIngredients = (ingrediente, props) => {
             ingredientIndex = index;
             return true
         }
+        return false
     })
     if (ingredientIndex != null) {
         props.dispatch(removeIngrediente(ingredientIndex));

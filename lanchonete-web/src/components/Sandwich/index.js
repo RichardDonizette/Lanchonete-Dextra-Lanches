@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import style from './style.css'
 import { selectSandwich, sandwichCostumize, addSandwichCart } from '../../actions/index'
 import { calculePriceBySandwich } from '../../util/cartCalculation'
 

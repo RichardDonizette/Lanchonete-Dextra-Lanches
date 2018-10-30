@@ -1,8 +1,8 @@
 export const calculePriceBySandwich = (sandwich, ingredientePrice) => {
     let price = 0.0;
     if (sandwich.length !== 0) {
-        sandwich.ingredients.map((ingrediente) => {
-            ingredientePrice.map((ingredienteList) => {
+        sandwich.ingredients.forEach((ingrediente) => {
+            ingredientePrice.forEach((ingredienteList) => {
                 if (ingrediente === ingredienteList.Name) {
                     price = (price + ingredienteList.Price)
                 }
