@@ -44,14 +44,10 @@ class Home extends Component {
                                 </CardContent>
                             </Card>
                         </Grid>
-                    </Grid>
+                    </Grid> 
                 </div>
             </div>
         )
     }
 }
-
-const mapStateToProps = (state) => ({
-});
-
-export default connect(mapStateToProps)(Home);
+export default connect()(Home);
