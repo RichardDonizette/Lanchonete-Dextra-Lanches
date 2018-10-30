@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from '../components/Header'
-import Cart from '../components/Cart'
-import Sandwich from '../components/Sandwich'
-import IngredientList from '../components/IngredientList'
-import { selectSandwich, closeSandwichCostumize } from '../actions/index'
-import { calculePriceBySandwich } from '../util/cartCalculation'
+import Header from '../components/Header';
+import Cart from '../components/Cart';
+import Sandwich from '../components/Sandwich';
+import IngredientList from '../components/IngredientList';
+import { selectSandwich, closeSandwichCostumize, addSandwichCart } from '../actions/index';
+import { calculePriceBySandwich } from '../util/cartCalculation';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -22,6 +22,7 @@ class SelectSandwich extends Component {
     sendSandwichCart(sandwich) {
         calculePriceBySandwich(sandwich, this.props.ingrediente)
         this.props.dispatch(selectSandwich(sandwich));
+        this.props.dispatch(addSandwichCart(sandwich, calculePriceBySandwich(sandwich, this.props.ingrediente)));
         this.props.dispatch(closeSandwichCostumize());
     }
 
@@ -59,7 +60,7 @@ class SelectSandwich extends Component {
                                 </Grid>
                                 <Grid item xs={6} style={{ textAlign: "right" }}>
                                     <Typography variant="display1">
-                                        R$ {selectSandwich.costumizePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+                                        R$ {calculePriceBySandwich(selectSandwich.sandwichCostumize, this.props.ingrediente).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} style={{ textAlign: "left" }}>

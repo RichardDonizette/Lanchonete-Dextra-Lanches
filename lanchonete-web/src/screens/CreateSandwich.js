@@ -13,7 +13,18 @@ import Header from '../components/Header';
 import IngredientList from '../components/IngredientList';
 import Cart from '../components/Cart'
 
+import { addSandwichCart } from '../actions/index';
+import { calculePriceBySandwich } from '../util/cartCalculation'
+
 class CreateSandwich extends Component {
+    sendSandwichCart(sandwich) {
+        let xCostumizado = {
+            Name: 'X Cliente',
+            ingredients: sandwich.ingredients
+        }
+        this.props.dispatch(addSandwichCart(xCostumizado, calculePriceBySandwich(sandwich, this.props.ingrediente)));
+    }
+
     render() {
         const { selectSandwich } = this.props;
         return (
@@ -46,7 +57,7 @@ class CreateSandwich extends Component {
                             </Grid>
                             <Grid item xs={6} style={{ textAlign: "right" }}>
                                 <Typography variant="display1">
-                                    R$ {selectSandwich.costumizePrice.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+                                    R$ {calculePriceBySandwich(selectSandwich.sandwichCostumize, this.props.ingrediente).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} style={{ textAlign: "left" }}>
@@ -69,7 +80,7 @@ class CreateSandwich extends Component {
                             </Grid>
                         </Grid>
                         <Divider />
-                        <Button color="secondary" disabled={true} onClick={() => { }} variant="contained" style={{ marginTop: 10 }} >
+                        <Button color="secondary" disabled={selectSandwich.sandwichCostumize.ingredients.length === 0 ? true : false} onClick={() => this.sendSandwichCart(selectSandwich.sandwichCostumize)} variant="contained" style={{ marginTop: 10 }} >
                             {"Adicionar ao carrinho este sanduíche"}
                         </Button>
                     </CardContent>

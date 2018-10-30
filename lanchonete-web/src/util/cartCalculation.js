@@ -1,13 +1,15 @@
-export const calculePriceBySandwich = (sandwich, ingredientePrice, initialPrice) => {
+export const calculePriceBySandwich = (sandwich, ingredientePrice) => {
     let price = 0.0;
-    sandwich.ingredients.map((ingrediente) => {
-        ingredientePrice.map((ingredienteList) => {
-            if (ingrediente == ingredienteList.Name) {
-                price = (price + ingredienteList.Price)
-            }
+    if (sandwich.length !== 0) {
+        sandwich.ingredients.map((ingrediente) => {
+            ingredientePrice.map((ingredienteList) => {
+                if (ingrediente == ingredienteList.Name) {
+                    price = (price + ingredienteList.Price)
+                }
+            })
         })
-    })
-    calculePriceWithPromotion(sandwich.ingredients, ingredientePrice)
+    }
+    // calculePriceWithPromotion(sandwich.ingredients, ingredientePrice)
     return price;
 };
 
@@ -50,7 +52,7 @@ const lightPromotion = (ingredienteList) => {
         return prevVal
     }, 0);
 
-    if (sumBacon === 0 && sumLettuce > 0){
+    if (sumBacon === 0 && sumLettuce > 0) {
         return 0.1;
     }
     return 0

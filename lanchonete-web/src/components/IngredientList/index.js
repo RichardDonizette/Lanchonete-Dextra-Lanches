@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { calculePriceBySandwich } from '../../util/cartCalculation'
 import { addIngrediente, removeIngrediente } from '../../actions/index'
 
 import List from '@material-ui/core/List';
@@ -12,7 +11,6 @@ import Icon from '@material-ui/core/Icon';
 
 const addIngredients = (ingrediente, props) => {
     props.dispatch(addIngrediente(ingrediente.Name, 0.0));
-    calculePriceBySandwich(props.sandwichCostumize, props.ingrediente, props.costumizePrice)
 }
 
 const removeIngredients = (ingrediente, props) => {
@@ -25,7 +23,7 @@ const removeIngredients = (ingrediente, props) => {
         }
     })
     if (ingredientIndex != null) {
-        props.dispatch(removeIngrediente(ingredientIndex, calculePriceBySandwich(props.sandwichCostumize, props.ingrediente, props.costumizePrice)));
+        props.dispatch(removeIngrediente(ingredientIndex));
     }
 }
 

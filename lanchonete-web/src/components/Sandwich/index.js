@@ -29,11 +29,11 @@ const selectImg = (path) => {
 
 const sendSandwichCart = (props) => {
    props.dispatch(selectSandwich(props.sandwich));
-   props.dispatch(addSandwichCart(props.sandwich, calculePriceBySandwich(props.sandwich, props.ingrediente, props.costumizePrice)));
+   props.dispatch(addSandwichCart(props.sandwich, calculePriceBySandwich(props.sandwich, props.ingrediente)));
 }
 
 const sendCostumizeSandwich = (props) => {
-    props.dispatch(sandwichCostumize(props.sandwich, calculePriceBySandwich(props.sandwich, props.ingrediente, props.costumizePrice)));
+    props.dispatch(sandwichCostumize(props.sandwich, calculePriceBySandwich(props.sandwich, props.ingrediente)));
 }
 
 const Sandwich = (props) => (
