@@ -8,6 +8,6 @@ script:
 deploy:
   provider: pages
   skip_cleanup: true
-  build: ./lanchonete-web/
+  build: /home/travis/build/RichardDonizette/Lanchonete-Dextra-Lanches/lanchonete-web
   on:
     branch: master
