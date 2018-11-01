@@ -80,5 +80,4 @@ export const removeSandwichCart = (index, totalPrice) => (dispatch) => {
         index,
         totalPrice
     })
-    console.log('blablabla')
 };

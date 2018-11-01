@@ -15,7 +15,11 @@ export const calculePriceBySandwich = (sandwich, ingredientePrice) => {
 
 const calculePriceWithPromotion = (total, ingredienteList, ingredientePrice) => {
     let discount = 0;
-
+    
+    if (ingredienteList.length === 0 && ingredientePrice.length === 0) { 
+        return discount 
+    }
+    
     const sum = ingredientePrice.reduce((counts, ingredient) => {
         counts[ingredient.Name] = 0;
         return counts;

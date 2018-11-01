@@ -9,7 +9,7 @@ import Sandwich from './components/Sandwich';
 import IngredientList from './components/IngredientList';
 import Header from './components/Header';
 import Cart from './components/Cart';
-import menu from './reducers/index'
+import { calculePriceBySandwich } from './util/cartCalculation';
 
 //Teste de render das telas
 
@@ -55,4 +55,130 @@ it('renders component Cart without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(connect(<Cart />), div);
   ReactDOM.unmountComponentAtNode(div);
+});
+
+it('Calculate the price of the sandwich', () => {
+  const sandwich ={
+    "ingredients": ["Bacon", "Hambúrguer de carne", "Queijo"]
+  }
+
+  const ingredientsPrice = [
+    {
+      "Name": "Bacon",
+      "Price": 2.0
+    },
+    {
+      "Name": "Alface",
+      "Price": 0.4
+    },
+    {
+      "Name": "Hambúrguer de carne",
+      "Price": 3.0
+    },
+    {
+      "Name": "Ovo",
+      "Price": 0.8
+    },
+    {
+      "Name": "Queijo",
+      "Price": 1.5
+    }
+  ];
+  
+  expect(calculePriceBySandwich(sandwich, ingredientsPrice)).toBe(6.5)
+});
+
+//Teste dos valores do lanche
+
+it("Calculate the price of promotion 'A lot of meat'", () => {
+  const sandwich ={
+    "ingredients": ["Bacon", "Hambúrguer de carne", "Queijo", "Hambúrguer de carne", "Hambúrguer de carne",]
+  }
+
+  const ingredientsPrice = [
+    {
+      "Name": "Bacon",
+      "Price": 2.0
+    },
+    {
+      "Name": "Alface",
+      "Price": 0.4
+    },
+    {
+      "Name": "Hambúrguer de carne",
+      "Price": 3.0
+    },
+    {
+      "Name": "Ovo",
+      "Price": 0.8
+    },
+    {
+      "Name": "Queijo",
+      "Price": 1.5
+    }
+  ];
+  
+  expect(calculePriceBySandwich(sandwich, ingredientsPrice)).toBe(9.5)
+});
+
+it("Calculate the price of promotion 'A lot of cheese'", () => {
+  const sandwich ={
+    "ingredients": ["Bacon", "Hambúrguer de carne", "Queijo", "Queijo", "Queijo"]
+  }
+
+  const ingredientsPrice = [
+    {
+      "Name": "Bacon",
+      "Price": 2.0
+    },
+    {
+      "Name": "Alface",
+      "Price": 0.4
+    },
+    {
+      "Name": "Hambúrguer de carne",
+      "Price": 3.0
+    },
+    {
+      "Name": "Ovo",
+      "Price": 0.8
+    },
+    {
+      "Name": "Queijo",
+      "Price": 1.5
+    }
+  ];
+  
+  expect(calculePriceBySandwich(sandwich, ingredientsPrice)).toBe(8)
+});
+
+it("Calculate the price of promotion 'Light sandwich'", () => {
+  const sandwich ={
+    "ingredients": ["Hambúrguer de carne", "Queijo", "Alface"]
+  }
+
+  const ingredientsPrice = [
+    {
+      "Name": "Bacon",
+      "Price": 2.0
+    },
+    {
+      "Name": "Alface",
+      "Price": 0.4
+    },
+    {
+      "Name": "Hambúrguer de carne",
+      "Price": 3.0
+    },
+    {
+      "Name": "Ovo",
+      "Price": 0.8
+    },
+    {
+      "Name": "Queijo",
+      "Price": 1.5
+    }
+  ];
+  
+  expect(calculePriceBySandwich(sandwich, ingredientsPrice)).toBe(4.41)
 });
